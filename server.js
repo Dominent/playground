@@ -12,7 +12,7 @@ const onRequestCallback = (req, res) => {
 
 class Server {
     constructor() {
-        this.routes = {};
+        this.routes = [];
 
         this.onRequestCallback = this.onRequestCallback.bind(this);
         this.onSuccessCallback = this.onSuccessCallback.bind(this);
@@ -26,23 +26,40 @@ class Server {
     //http://localhost:8000/templates/{name}
 
     //[\w.]+
+    //[?&]id=[\w.]+
+    //(?<=:)[\w.]+
     onRequestCallback(req, res) {
         const { url, method } = req;
 
-        let routeNames = Object.keys(this.routes);
+        for (let item of this.routes) {
+            let rexExp = new RegExp(item.route, 'gi');
 
-        for (let routeName in routeNames) {
-            let disassembledRouteName = routeName.split('/');
-            let _t = url.split('/');
-
-            for (let i = 0; i < disassembledRouteName.length; ++i) {
-
+            let isMatch = rexExp.test(url);
+            if (isMatch) {
+                return item.callback(req, res, {
+                    path: [],
+                    query: []
+                });
             }
+
+            console.log(item);
         }
+
+        // Object.keys(this.routes)
+        //     .
+
+
+        // for (let routeName in routeNames) {
+        //     let disassembledRouteName = routeName.split('/');
+        //     let _t = url.split('/');
+
+        //     for (let i = 0; i < disassembledRouteName.length; ++i) {
+
+        //     }
+        // }
 
         if (this.routes[url]) {
             url.split('/')
-
 
             this.routes[url](req, res, {
                 params: {},
@@ -52,29 +69,47 @@ class Server {
     }
 
     //TODO(PPavlov): Check for callback
-    registerRoute(route, callback) {
-        if (typeof route !== 'string') {
-            throw new Error('Route must be a string!');
+    registerRoute(url, callback) {
+        if (typeof url !== 'string') {
+            throw new Error('URL must be a string!');
         }
 
-        if (!route.startsWith('/')) {
-            throw new Error('Route must start with "/" symbol!');
+        if (!url.startsWith('/')) {
+            throw new Error('URL must start with "/" symbol!');
         }
 
-        if (route.length < 0) {
-            throw new Error('Route cannot be empty!');
+        if (url.length < 0) {
+            throw new Error('URL cannot be empty!');
         }
 
-        let pattern = '[\w.]+';
+        let pathPattern = '[\\w.]+';
+        let queryPattern = (name) => `[?&]${name}=[\\w.]+`
+        let params = {
+            query: {},
+            path: {}
+        }
 
-        let pathParamRegExp = new RegExp(`{${pattern}}`, 'g');
+        let route = url
+            .replace(/:[\w.]+/gi, (val) => {
+                let param = val.replace(':', '');
 
-        let queryParamRegExp = new RegExp(pattern, 'g');
+                params.query[param] = undefined;
 
-        this.routes[route] = {
-            pattern: route.replace(pathParamRegExp),
-            callback: callback
-        };
+                return queryPattern(param)
+            })
+            .replace(/{[\w.]+}/gi, (val) => {
+                let param = val.replace(/{|}/gi, '');
+
+                params.path[param] = undefined;
+
+                return pathPattern
+            });
+
+        //Build Query and Path Regex for path use capturing groups
+
+        this.routes.push({ route, url, callback, params });
+
+        this.routes = this.routes.sort((x, y) => x.route.length < y.route.length)
 
         return this;
     }
