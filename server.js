@@ -1,15 +1,5 @@
 const http = require('http');
 
-const onSuccessCallback = () => {
-    console.log(`Successfully connected at port: ${PORT}`)
-};
-
-const onRequestCallback = (req, res) => {
-    const { url, method } = req;
-
-    this.routes[url]
-};
-
 class Server {
     constructor() {
         this.routes = [];
@@ -22,14 +12,32 @@ class Server {
         console.log(`Successfully connected at port: ${port}`)
     }
 
-    //http://localhost:8000/templates/TComboBox.js?id=32
-    //http://localhost:8000/templates/{name}
-
-    //[\w.]+
-    //[?&]id=[\w.]+
-    //(?<=:)[\w.]+
     onRequestCallback(req, res) {
         const { url, method } = req;
+
+        const getPathParams = (params, url) => {
+            let pathParams = {};
+            Object.keys(params).forEach(x => {
+                let regExp = new RegExp(params[x], 'gi');
+
+                let value = regExp.exec(url)[1];
+
+                pathParams[x] = value
+            })
+            return pathParams;
+        };
+
+        const getQueryParams = (params, url) => {
+            let queryParams = {};
+            Object.keys(params).map(x => {
+                let regExp = new RegExp(params[x], 'gi');
+
+                let value = regExp.exec(url)[1];
+
+                queryParams[x] = /\w+$/gi.exec(value)[0];
+            })
+            return queryParams;
+        };
 
         for (let item of this.routes) {
             let rexExp = new RegExp(item.route, 'gi');
@@ -37,38 +45,16 @@ class Server {
             let isMatch = rexExp.test(url);
             if (isMatch) {
                 return item.callback(req, res, {
-                    path: [],
-                    query: []
+                    path: getPathParams(item.params.path, url),
+                    query: getQueryParams(item.params.query, url),
                 });
             }
-
-            console.log(item);
         }
 
-        // Object.keys(this.routes)
-        //     .
-
-
-        // for (let routeName in routeNames) {
-        //     let disassembledRouteName = routeName.split('/');
-        //     let _t = url.split('/');
-
-        //     for (let i = 0; i < disassembledRouteName.length; ++i) {
-
-        //     }
-        // }
-
-        if (this.routes[url]) {
-            url.split('/')
-
-            this.routes[url](req, res, {
-                params: {},
-                query: {}
-            });
-        }
+        res.write(404);
+        res.end();
     }
 
-    //TODO(PPavlov): Check for callback
     registerRoute(url, callback) {
         if (typeof url !== 'string') {
             throw new Error('URL must be a string!');
@@ -83,11 +69,21 @@ class Server {
         }
 
         let pathPattern = '[\\w.]+';
-        let queryPattern = (name) => `[?&]${name}=[\\w.]+`
+        let buildQueryPattern = (name) => `[?&]${name}=[\\w.]+`
         let params = {
             query: {},
             path: {}
         }
+
+        const buildPathToken = (param) => `<${param}></${param}>`;
+        const buildQueryToken = (param) => `[${param}][/${param}]`;
+
+        const replacePathToken = /<\w+><\/\w+>/gi;
+        const replaceQueryToken = /\[\w+\]\[\/\w+\]/gi;
+
+        const clearRouteTokens = (route) => route
+            .replace(replacePathToken, (val) => pathPattern)
+            .replace(replaceQueryToken, (val) => buildQueryPattern(/\[(\w+)\]/gi.exec(val)[1]));
 
         let route = url
             .replace(/:[\w.]+/gi, (val) => {
@@ -95,17 +91,27 @@ class Server {
 
                 params.query[param] = undefined;
 
-                return queryPattern(param)
+                return buildQueryToken(param);
             })
             .replace(/{[\w.]+}/gi, (val) => {
                 let param = val.replace(/{|}/gi, '');
 
                 params.path[param] = undefined;
 
-                return pathPattern
+                return buildPathToken(param);
             });
 
-        //Build Query and Path Regex for path use capturing groups
+        Object.keys(params.path)
+            .forEach(x => params.path[x] = clearRouteTokens(route
+                .replace(buildPathToken(x),
+                    (val) => `(${pathPattern})`)))
+
+        Object.keys(params.query)
+            .forEach(x => params.query[x] = clearRouteTokens(route
+                .replace(buildQueryToken(x),
+                    (val) => `(${buildQueryToken(x)})`)))
+
+        route = clearRouteTokens(route);
 
         this.routes.push({ route, url, callback, params });
 
