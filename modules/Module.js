@@ -1,4 +1,4 @@
-(function (barebones) {
+(function (container) {
     class Module {
         constructor(props) {
         }
@@ -10,5 +10,5 @@
         }
     }
 
-    barebones.Module = Module;
-})(barebones);
+    container.Module = Module;
+})(container);

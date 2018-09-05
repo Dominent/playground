@@ -1,8 +1,8 @@
 jsRequire('/modules/Module.js');
 jsRequire('/templates/TAppRoot.jshtml');
 
-(function (barebones) {
-    class AppRoot extends barebones.Module {
+(function (container) {
+    class AppRoot extends container.Module {
         constructor(props) {
             super(props);
             this.name = 'AppRoot';
@@ -13,5 +13,5 @@ jsRequire('/templates/TAppRoot.jshtml');
         }
     }
 
-    barebones.AppRoot = AppRoot;
-})(barebones)
+    container.AppRoot = AppRoot;
+})(container)

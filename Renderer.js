@@ -1,7 +1,0 @@
-class Renderer {
-    constructor(domNode) {
-
-    }
-
-
-}

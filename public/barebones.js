@@ -1,3 +1,22 @@
+this.container = {};
+
+function jsInclude(path) {
+
+}
+
+function jsRequire(path) {
+    var request = new XMLHttpRequest();
+
+    const isAsyncRequest = false;
+
+    request.open('GET', `http://localhost:8000/${path}`, isAsyncRequest);
+    request.send(null);
+
+    const response = request.response;
+
+    eval.call(this, response);
+}
+
 const AJAX = {
     GET: function (url, headers = []) {
         return new Promise((resolve, reject) => {
@@ -18,34 +37,13 @@ const AJAX = {
     }
 }
 
-function jsRequire(path) {
-    var request = new XMLHttpRequest();
-
-    const isAsyncRequest = false;
-
-    request.open('GET', `http://localhost:8000/${path}`, isAsyncRequest);
-    request.send(null);
-
-    const response = request.response;
-
-    eval.call(this, response);
-}
+jsRequire('scripts/Renderer.js')
 
 function BarebonesJS() {
     return {
         init: (domNode) => {
-            this.barebones = {};
-
-            let element = domNode.querySelector('[js-module]');
-
-            let rootModule = element.getAttribute('js-module');
-
-            console.log(rootModule);
-
-            jsRequire(`modules/${rootModule}.js`);
-
-            element.innerHTML = new barebones[rootModule]()
-                .render();
+            new container.Renderer(domNode)
+                .init();
         }
     }
 }
