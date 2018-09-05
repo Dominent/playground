@@ -1,4 +1,5 @@
-jsRequire('TAppRoot');
+jsRequire('/modules/Module.js');
+jsRequire('/templates/TAppRoot.js');
 
 class AppRoot extends Module {
     constructor(props) {

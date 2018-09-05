@@ -6,6 +6,12 @@ const promiseWrappers = require('./promiseWrappers');
 
 const path = require('path');
 
+/**
+ * Route syntax:
+ *     /templates/{name}:id'
+ *     { path-param }
+ *     : query-param
+ */
 let router = new Router()
     .mapRoute('/', (req, res) => {
         let directory = path.join(__dirname, 'public', 'index.html');
@@ -55,15 +61,6 @@ let router = new Router()
                 res.end(err);
             })
     })
-    .mapRoute('/templates/{name}:name:id', (req, res, params) => {
-        console.log(params);
-    })
-    .mapRoute('/templates/{name}/{family}', (req, res, params) => {
-        console.log(params);
-    })
 
 new Server(router)
     .start(8000);
-
-// registerModule(AppRootModule, 'TAppRootModule')
-// registerService()

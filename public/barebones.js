@@ -15,13 +15,21 @@ const AJAX = {
         })
     },
     POST: function () {
-
     }
 }
 
 function jsRequire(path) {
-    AJAX.GET(`http://localhost:8000/${path}`)
+    const file = AJAX.GET(`http://localhost:8000/${path}`);
+
+    console.log(file);
 }
 
-jsRequire('modules/AppRootModule.js');
+function BarebonesJS() {
+    return {
+        init: (domNode) => {
+            jsRequire('modules/AppRoot.js');
+        }
+    }
+}
+
 
