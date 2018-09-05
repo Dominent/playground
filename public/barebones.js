@@ -19,14 +19,22 @@ const AJAX = {
 }
 
 function jsRequire(path) {
-    const file = AJAX.GET(`http://localhost:8000/${path}`);
+    var request = new XMLHttpRequest();
 
-    console.log(file);
+    const isAsyncRequest = false;
+
+    request.open('GET', `http://localhost:8000/${path}`, isAsyncRequest);
+    request.send(null);
+
+    const response = request.response;
+
+    eval.call(this, response);
 }
 
 function BarebonesJS() {
     return {
         init: (domNode) => {
+            this.barebones = {};
             jsRequire('modules/AppRoot.js');
         }
     }

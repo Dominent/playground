@@ -1,12 +1,16 @@
 jsRequire('/modules/Module.js');
-jsRequire('/templates/TAppRoot.js');
+jsRequire('/templates/TAppRoot.jshtml');
 
-class AppRoot extends Module {
-    constructor(props) {
-        this.name = 'AppRoot';
+(function(barebones){
+    class AppRoot extends barebones.Module {
+        constructor(props) {
+            this.name = 'AppRoot';
+        }
+        
+        render() {
+            return TAppRoot({}, this.name);
+        }
     }
-    
-    render() {
-        return TAppRoot({}, this.name);
-    }
-}
+
+    barebones.AppRoot = AppRoot;
+})(barebones)
