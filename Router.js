@@ -49,7 +49,6 @@ class Router {
     }
 
     get routes() {
-        // return JSON.parse(JSON.stringify(this._routes));
         return this._routes;
     }
 

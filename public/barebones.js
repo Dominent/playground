@@ -35,7 +35,17 @@ function BarebonesJS() {
     return {
         init: (domNode) => {
             this.barebones = {};
-            jsRequire('modules/AppRoot.js');
+
+            let element = domNode.querySelector('[js-module]');
+
+            let rootModule = element.getAttribute('js-module');
+
+            console.log(rootModule);
+
+            jsRequire(`modules/${rootModule}.js`);
+
+            element.innerHTML = new barebones[rootModule]()
+                .render();
         }
     }
 }
