@@ -1,0 +1,4 @@
+<div class="container">
+    <h3>App Root Module</h3>
+    <span>{{name}}</span>
+</div>

@@ -24,3 +24,6 @@ let router = new Router()
 
 new Server(router)
     .start(8000);
+
+// registerModule(AppRootModule, 'TAppRootModule')
+// registerService()

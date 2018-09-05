@@ -7,9 +7,16 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="app-root">
+    <div js-module="AppRoot">
         <h1>App is loading</h1>
     </div>
-    <script type="text/javascript" src="index.js"></script>
+
+    <script type="text/javascript" src="Barebones.js"></script>
+    <script>
+        const Barebones = require('./Barebones');
+
+        new Barebones(document)
+            .init();
+    </script>
 </body>
 </html>
