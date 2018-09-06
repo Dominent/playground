@@ -19,11 +19,17 @@
                 let element = current.querySelector('[js-module]');
                 if (!element) { continue; }
 
-                let module = element.getAttribute('js-module');
+                let moduleType = element.getAttribute('js-module');
 
-                jsRequire(`/modules/${module}.js`);
+                jsRequire(`/modules/${moduleType}.js`);
 
-                element.innerHTML = new container[module](element.dataset)
+                let module = new container[moduleType](element.dataset);
+
+                console.log(module)
+
+                module.init();
+
+                element.innerHTML = module
                     .render();
 
                 [...element.children].forEach(el => queue.push(el));

@@ -1,40 +1,15 @@
-const Server = require('./Server');
-const Router = require('./Router');
-const TemplateEngine = require('./TemplateEngine');
+const Server = require('./barebones/server/Server');
+const Router = require('./barebones/server/Router');
+const TemplateEngine = require('./barebones/server/TemplateEngine');
 
-const promiseWrappers = require('./promiseWrappers');
-
-const path = require('path');
-
-const fileRoute = (req, res, directory) => {
-    return promiseWrappers.readFile(directory)
-        .then(m => {
-            res.writeHead(200, { 'Content-Type': 'text/javascript' });
-            res.end(m);
-        })
-        .catch(err => {
-            res.writeHead(404, { 'Content-Type': 'text/plain' });
-            res.end(err);
-        })
-}
-
-/**
- * Route syntax:
- *     /templates/{name}:id'
- *     { path-param }
- *     : query-param
- */
 let router = new Router()
-    .mapRoute('/', (req, res) => {
-        let directory = path.join(__dirname, 'public', 'index.html');
-
-        promiseWrappers.readFile(directory)
-            .then(m => {
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(m);
-            })
-    })
-    .mapRoute('/templates/{filename}', (req, res, params) => {
+    .mapIndexRoute('/', '/public/index.html')
+    .mapDirectoryRoute('/barebones/client', ['.js'])
+    .mapFileRoute('/barebones/bootstrap.js')
+    .mapDirectoryRoute('/public', ['.js', '.html'])
+    .mapDirectoryRoute('/modules', ['.js'])
+    .mapDirectoryRoute('/services', ['.js'])
+    .mapGenericRoute('/templates/{filename}', (req, res, params) => {
         const { filename } = params.path;
 
         return new TemplateEngine().compileAsync(filename)
@@ -43,12 +18,6 @@ let router = new Router()
                 res.end(template);
             })
     })
-    .mapRoute('/modules/{filename}', (req, res, params) => fileRoute(
-        req, res, path.join(__dirname, 'modules', params.path.filename)))
-    .mapRoute('/scripts/{filename}', (req, res, params) => fileRoute(
-        req, res, path.join(__dirname, 'scripts', params.path.filename)))
-    .mapRoute('/public/{filename}', (req, res, params) => fileRoute(
-        req, res, path.join(__dirname, 'public', params.path.filename)))
 
 new Server(router)
     .start(8000);

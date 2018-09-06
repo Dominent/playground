@@ -1,6 +1,5 @@
 const path = require('path');
-
-const promiseWrappers = require('./promiseWrappers');
+const fs = require('fs')
 
 const templateWrapper = (name, parameters, body) => {
     return `function ${name}(${parameters}) {
@@ -11,10 +10,14 @@ const templateWrapper = (name, parameters, body) => {
 
 class TemplateEngine {
     compileAsync(filename) {
-        let dir = path.join(__dirname, 'templates', filename);
+        let dir = path.join(process.cwd(), 'templates', filename);
 
-        return promiseWrappers.readFile(dir)
-            .then(data => {
+        return new Promise((resolve, reject) => {
+            fs.readFile(dir, 'utf8', (err, data) => {
+                if (err) {
+                    return reject(err);
+                }
+
                 let parameters = new Set();
                 let templateBody = data.split('\n').map(x => x.trim()).filter(Boolean)
                     .map(x => {
@@ -37,11 +40,14 @@ class TemplateEngine {
                         return '__html.push(`' + x + '`);';
                     }).join('\n');
 
-                return templateWrapper(
-                    path.basename(filename, '.jshtml'),
-                    ['__html', ...parameters].join(', '),
-                    templateBody)
+                return resolve(
+                    templateWrapper(
+                        path.basename(filename, '.jshtml'),
+                        ['__html', ...parameters].join(', '),
+                        templateBody)
+                )
             })
+        })
     }
 }
 

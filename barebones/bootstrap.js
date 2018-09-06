@@ -1,7 +1,7 @@
-this.container = {};
+this.container = {
+};
 
 function jsInclude(path) {
-
 }
 
 function jsRequire(path) {
@@ -36,16 +36,3 @@ const AJAX = {
     POST: function () {
     }
 }
-
-jsRequire('scripts/Renderer.js')
-
-function BarebonesJS() {
-    return {
-        init: (domNode) => {
-            new container.Renderer(domNode)
-                .init();
-        }
-    }
-}
-
-
