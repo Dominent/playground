@@ -9,6 +9,9 @@ jsRequire('/templates/TAppRoot.jshtml');
         }
 
         render() {
+            debugger;
+            throw new Error('Haha Fun');
+
             return TAppRoot([], this.name).join('');
         }
     }

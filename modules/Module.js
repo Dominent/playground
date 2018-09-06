@@ -17,7 +17,7 @@
         }
 
         onException(ex) {
-
+            console.log(ex);
         }
     }
 

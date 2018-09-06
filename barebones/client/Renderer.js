@@ -1,3 +1,5 @@
+jsRequire('/barebones/client/ExceptionsManager.js');
+
 (function (container) {
     class Renderer {
         constructor(rootNode) {
@@ -23,9 +25,10 @@
 
                 jsRequire(`/modules/${moduleType}.js`);
 
-                let module = new container[moduleType](element.dataset);
+                let exceptionsManager = new container.ExceptionsManager();
+                let clazz = exceptionsManager.compile(container[moduleType]);
 
-                console.log(module)
+                let module = new clazz(element.dataset);
 
                 module.init();
 
