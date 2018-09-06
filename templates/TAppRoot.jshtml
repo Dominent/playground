@@ -1,4 +1,5 @@
 <div class="container">
+    <div js-module="Navbar" data-info="Pesho"></div>
     <h3>App Root Module</h3>
     <span>{{name}}</span>
 </div>

@@ -1,6 +1,0 @@
-<div class="container">
-    <label for="input-group-{{id}}" />
-    <input type="text" id="input-group-{{id}}" data-change={{this.onChange}}/>
-
-    <span>{{this.value}}</span>
-</div>

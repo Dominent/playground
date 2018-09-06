@@ -9,13 +9,25 @@
         }
 
         render(domNode) {
-            let element = domNode.querySelector('[js-module]');
-            let module = element.getAttribute('js-module');
+            let queue = [];
 
-            jsRequire(`/modules/${module}.js`);
+            queue.push(domNode);
 
-            element.innerHTML = new container[module](element.dataset)
-                .render();
+            while (queue.length) {
+                let current = queue.shift();
+
+                let element = current.querySelector('[js-module]');
+                if (!element) { continue; }
+
+                let module = element.getAttribute('js-module');
+
+                jsRequire(`/modules/${module}.js`);
+
+                element.innerHTML = new container[module](element.dataset)
+                    .render();
+
+                [...element.children].forEach(el => queue.push(el));
+            }
         }
     }
 
