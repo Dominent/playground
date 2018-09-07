@@ -1,10 +1,18 @@
 this.container = {
 };
 
+this.__required = [];
+
 function jsInclude(path) {
 }
 
 function jsRequire(path) {
+    if (this.__required.includes(path)) {
+        return;
+    }
+
+    this.__required.push(path);
+
     var request = new XMLHttpRequest();
 
     const isAsyncRequest = false;

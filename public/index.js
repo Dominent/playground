@@ -1,5 +1,4 @@
 jsRequire('/barebones/client/Barebones.js');
-
 jsRequire('/services/EmailService.js');
 jsRequire('/services/PostService.js');
 

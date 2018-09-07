@@ -1,4 +1,5 @@
 jsRequire('/barebones/client/Renderer.js');
+jsRequire('/barebones/client/EventsManager.js');
 
 (function (container) {
     class Barebones {
@@ -7,6 +8,7 @@ jsRequire('/barebones/client/Renderer.js');
         }
 
         init() {
+            //TODO(PPavlov): This is shit, need to cleanup, rewrite renderer, its more bloated than a sick dog
             let renderer = new container.Renderer(document.body);
 
             renderer.moduleSelector = (node) => {
@@ -36,6 +38,9 @@ jsRequire('/barebones/client/Renderer.js');
 
                 return bindModule;
             }
+
+            renderer.onAfterRender = (element, module) => new container.EventsManager()
+                .attachEvents(element, module);
 
             renderer.init();
         }

@@ -12,6 +12,11 @@ jsRequire('/templates/TNavbar.jshtml');
         render() {
             return TNavbar([], this.info).join('');
         }
+
+        onClickHandler(ev) {
+            debugger;
+            console.log(ev);
+        }
     }
 
     container.Navbar = Navbar;

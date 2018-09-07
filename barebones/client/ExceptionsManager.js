@@ -1,4 +1,6 @@
-jsRequire('/modules/Module.js');
+jsRequire('/modules/Module.js'); 
+//TODO(PPavlov): Add Check if applied to typeof module
+//TODO(PPavlov): Exclude compile for [Module.js]
 
 (function (container) {
     class ExceptionsManager {
