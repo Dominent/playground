@@ -1,7 +1,7 @@
 (function (container) {
     class Module {
         constructor(props) {
-            
+
         }
 
         init() {
@@ -15,8 +15,12 @@
         destroy() {
 
         }
+        
+        observables() {
+        }
 
         onChange() {
+            debugger;
             this.render();
         }
 

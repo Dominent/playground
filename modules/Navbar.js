@@ -9,13 +9,14 @@ jsRequire('/templates/TNavbar.jshtml');
             this.info = props.info;
         }
 
+        observables() { return ['info'] }
+
         render() {
             return TNavbar([], this.info).join('');
         }
 
         onClickHandler(ev) {
-            debugger;
-            console.log(ev);
+            this.info = 'Pustinqka Pesho';
         }
     }
 

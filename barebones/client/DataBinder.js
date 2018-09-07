@@ -1,16 +1,35 @@
 (function (container) {
     class DataBinder {
         bind(module) {
-            return new Proxy(module, {
-                get: (target, name) => {
-                    return target[name];
-                },
-                set: (target, name, value) => {
-                    target.onChange({ name: value });
+            let observableProperties = module.observables();
+            if (!observableProperties)
+                return module;
 
-                    return target[name] = value;
-                }
-            })
+            let values = {};
+
+            for (let prop of observableProperties) {
+                values[prop] = module[prop];
+
+                delete module[prop];
+
+                Object.defineProperty(module, prop, {
+                    get: () => {
+                        return module[`_${prop}`];
+                    },
+                    set: (value) => {
+                        module[`_${prop}`] = value;
+                        module.onChange({ name: prop, value: value });
+
+                        return true;
+                    }
+                })
+            }
+
+            for (name of Object.keys(values)) {
+                module[`_${name}`] = values[name];
+            }
+
+            return module;
         }
     }
 
