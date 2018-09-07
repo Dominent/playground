@@ -7,12 +7,13 @@ jsRequire('/modules/Module.js');
                 module = function () {
                     let that = new _module(...arguments);
 
-                    const proto = Object.getPrototypeOf(that);
+                    let proto = Object.getPrototypeOf(that);
                     const methods = Object.getOwnPropertyNames(proto)
                         .filter(x => x !== 'constructor');
 
                     // Overwrite class methods
                     for (let method of methods) {
+                        // This is very suspicous, we should edit the proto not the object
                         that[method] = function () {
                             try {
                                 return _module.prototype[method]

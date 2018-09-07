@@ -30,22 +30,18 @@ jsRequire('/barebones/client/DataBinder.js');
                 let exceptionsManager = new container.ExceptionsManager();
                 let safeModule = exceptionsManager.compile(container[moduleType]);
 
+                let module = new safeModule(element.dataset);
+
                 //TODO(PPavlov): Move to first registration of module!
                 let dataBinder = new container.DataBinder();
-                let bindModule = dataBinder.bind(safeModule);
+                let bindModule = dataBinder.bind(module);
 
-                let module = new bindModule(element.dataset);
-                // let module = new safeModule(element.dataset);
+                bindModule.init();
 
-                module.name = 'IvanPetkan';
-                
-                module.init();
-
-                element.innerHTML = module
+                element.innerHTML = bindModule
                     .render();
 
-                debugger;
-                module.name = 'IvanPetkan';
+                bindModule.name = 'IvanPetkan';
 
                 [...element.children].forEach(el => queue.push(el));
             }
