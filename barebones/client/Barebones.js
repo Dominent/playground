@@ -43,6 +43,8 @@ jsRequire('/barebones/client/EventsManager.js');
                 .attachEvents(element, module);
 
             renderer.init();
+
+            barebones.__renderer = renderer;
         }
 
         registerService(name, service) {

@@ -16,6 +16,7 @@ jsRequire('/modules/Module.js');
                     // Overwrite class methods
                     for (let method of methods) {
                         // This is very suspicous, we should edit the proto not the object
+                        // Replace with Object.defineproperty
                         that[method] = function () {
                             try {
                                 return _module.prototype[method]

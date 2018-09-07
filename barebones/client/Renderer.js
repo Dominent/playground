@@ -36,6 +36,8 @@ jsRequire('/barebones/client/DataBinder.js');
 
                 this.onAfterRender(domModule.element, module);
 
+                module.__domNode = domModule.element;
+
                 [...domModule.element.children].forEach(el => queue.push(el));
             }
         }

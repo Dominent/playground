@@ -15,13 +15,14 @@
         destroy() {
 
         }
-        
+
         observables() {
         }
 
         onChange() {
-            debugger;
-            this.render();
+            console.log('change occured');
+            // barebones.__render
+            // .render(this.render());
         }
 
         onException(ex) {
