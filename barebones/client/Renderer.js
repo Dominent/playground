@@ -5,6 +5,9 @@ jsRequire('/barebones/client/DataBinder.js');
     class Renderer {
         constructor(rootNode) {
             this._rootNode = rootNode;
+
+            this.moduleSelector;
+            this.buildModule;
         }
 
         init() {
@@ -19,31 +22,19 @@ jsRequire('/barebones/client/DataBinder.js');
             while (queue.length) {
                 let current = queue.shift();
 
-                let element = current.querySelector('[js-module]');
-                if (!element) { continue; }
+                let domModule = this.moduleSelector(current);
+                if (!domModule) { continue; }
 
-                let moduleType = element.getAttribute('js-module');
+                jsRequire(`/modules/${domModule.type}.js`);
 
-                jsRequire(`/modules/${moduleType}.js`);
+                let module = this.buildModule(container[domModule.type], domModule.props);
 
-                //TODO(PPavlov): Move to first registration of module!
-                let exceptionsManager = new container.ExceptionsManager();
-                let safeModule = exceptionsManager.compile(container[moduleType]);
+                module.init();
 
-                let module = new safeModule(element.dataset);
-
-                //TODO(PPavlov): Move to first registration of module!
-                let dataBinder = new container.DataBinder();
-                let bindModule = dataBinder.bind(module);
-
-                bindModule.init();
-
-                element.innerHTML = bindModule
+                domModule.element.innerHTML = module
                     .render();
 
-                bindModule.name = 'IvanPetkan';
-
-                [...element.children].forEach(el => queue.push(el));
+                [...domModule.element.children].forEach(el => queue.push(el));
             }
         }
     }
