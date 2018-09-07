@@ -16,6 +16,10 @@
 
         }
 
+        onChange() {
+            this.render();
+        }
+
         onException(ex) {
             console.log(ex);
         }

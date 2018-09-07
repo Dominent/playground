@@ -4,38 +4,39 @@ jsRequire('/modules/Module.js');
     class ExceptionsManager {
         compile(module) {
             module =  (function (_module) {
-                this[module.name] = function () {
-                    new _module(arguments);
+                module = function () {
+                    let that = new _module(...arguments);
 
-                    const proto = Object.getPrototypeOf(this);
+                    const proto = Object.getPrototypeOf(that);
                     const methods = Object.getOwnPropertyNames(proto)
                         .filter(x => x !== 'constructor');
 
                     // Overwrite class methods
                     for (let method of methods) {
-                        this[method] = function () {
+                        that[method] = function () {
                             try {
                                 return _module.prototype[method]
-                                    .apply(this, arguments);
+                                    .apply(that, arguments);
                             } catch (error) {
-                                this.onException(error);
+                                that.onException(error);
                             }
                         };
                     }
+
+                    return that;
                 }
 
                 // reset prototype
-                this[module.name].prototype = _module.prototype; 
+                module.prototype = _module.prototype; 
 
                 // fix constructor property
-                this[module.name].prototype.constructor = this[module.name]; 
+                module.prototype.constructor = module; 
 
-                return this[module.name];
-            }).call(this, module);
+                return module;
+            })(module);
 
             return module;
         }
-
     }
 
     container.ExceptionsManager = ExceptionsManager;

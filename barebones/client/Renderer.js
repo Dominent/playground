@@ -1,4 +1,5 @@
 jsRequire('/barebones/client/ExceptionsManager.js');
+jsRequire('/barebones/client/DataBinder.js');
 
 (function (container) {
     class Renderer {
@@ -25,15 +26,26 @@ jsRequire('/barebones/client/ExceptionsManager.js');
 
                 jsRequire(`/modules/${moduleType}.js`);
 
+                //TODO(PPavlov): Move to first registration of module!
                 let exceptionsManager = new container.ExceptionsManager();
-                let clazz = exceptionsManager.compile(container[moduleType]);
+                let safeModule = exceptionsManager.compile(container[moduleType]);
 
-                let module = new clazz(element.dataset);
+                //TODO(PPavlov): Move to first registration of module!
+                let dataBinder = new container.DataBinder();
+                let bindModule = dataBinder.bind(safeModule);
 
+                let module = new bindModule(element.dataset);
+                // let module = new safeModule(element.dataset);
+
+                module.name = 'IvanPetkan';
+                
                 module.init();
 
                 element.innerHTML = module
                     .render();
+
+                debugger;
+                module.name = 'IvanPetkan';
 
                 [...element.children].forEach(el => queue.push(el));
             }

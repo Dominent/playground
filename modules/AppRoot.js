@@ -5,13 +5,11 @@ jsRequire('/templates/TAppRoot.jshtml');
     class AppRoot extends container.Module {
         constructor(props) {
             super(props);
+            
             this.name = 'AppRoot';
         }
 
         render() {
-            debugger;
-            throw new Error('Haha Fun');
-
             return TAppRoot([], this.name).join('');
         }
     }

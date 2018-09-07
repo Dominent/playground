@@ -7,7 +7,8 @@ jsRequire('/barebones/client/Renderer.js');
         }
 
         init() {
-            new container.Renderer(document.body).init();
+            new container.Renderer(document.body)
+                .init();
         }
 
         registerService(name, service) {
