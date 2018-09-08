@@ -14,10 +14,10 @@
 
                 Object.defineProperty(module, prop, {
                     get: () => {
-                        return module[`_${prop}`];
+                        return module[`__${prop}`];
                     },
                     set: (value) => {
-                        module[`_${prop}`] = value;
+                        module[`__${prop}`] = value;
                         module.onChange({ name: prop, value: value });
 
                         return true;
@@ -26,7 +26,7 @@
             }
 
             for (name of Object.keys(values)) {
-                module[`_${name}`] = values[name];
+                module[`__${name}`] = values[name];
             }
 
             return module;
