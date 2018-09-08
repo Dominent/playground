@@ -1,4 +1,7 @@
+/* IF DEV */
 jsRequire('/modules/Module.js'); 
+/* END IF */
+
 //TODO(PPavlov): Add Check if applied to typeof module
 //TODO(PPavlov): Exclude compile for [Module.js]
 

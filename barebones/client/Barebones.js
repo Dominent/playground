@@ -1,5 +1,7 @@
+/* IF DEV */
 jsRequire('/barebones/client/Renderer.js');
 jsRequire('/barebones/client/EventsManager.js');
+/* END IF */
 
 (function (container) {
     class Barebones {

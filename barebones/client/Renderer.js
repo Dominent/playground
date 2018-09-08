@@ -1,5 +1,7 @@
+/* IF DEV */
 jsRequire('/barebones/client/ExceptionsManager.js');
 jsRequire('/barebones/client/DataBinder.js');
+/* END IF */
 
 (function (container) {
     class Renderer {
