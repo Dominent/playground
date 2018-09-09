@@ -8,6 +8,7 @@ $Files = @(
     (Get-Content -Path './client/DataBinder.js' | Out-String),
     (Get-Content -Path './client/EventsManager.js' | Out-String),
     (Get-Content -Path './client/ExceptionsManager.js' | Out-String),
+    (Get-Content -Path './client/ModuleBuilder.js' | Out-String),
     (Get-Content -Path './client/Renderer.js' | Out-String)
 )
 
