@@ -55,9 +55,9 @@
                 let moduleType = element.getAttribute('js-module');
                 let moduleProps = element.dataset;
 
-                jsRequire(`/modules/${moduleType}.js`);
-
                 if (_module === null) {
+                    jsRequire(`/modules/${moduleType}.js`);
+
                     for (let middleware of this._middleware) {
                         _module = middleware(_module || container[moduleType]);
                     }

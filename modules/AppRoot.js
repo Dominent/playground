@@ -1,4 +1,3 @@
-jsRequire('/modules/Module.js');
 jsRequire('/templates/TAppRoot.jshtml');
 
 (function (container) {

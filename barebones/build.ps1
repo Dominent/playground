@@ -10,6 +10,7 @@ $Files = @(
     (Get-Content -Path './client/ExceptionsManager.js' | Out-String),
     (Get-Content -Path './client/ModuleBuilder.js' | Out-String),
     (Get-Content -Path './client/Renderer.js' | Out-String)
+    (Get-Content -Path './client/Module.js' | Out-String)
 )
 
 if(!(Test-Path $BUILD_PATH)) {

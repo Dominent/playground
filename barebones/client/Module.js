@@ -1,7 +1,6 @@
 (function (container) {
     class Module {
         constructor(props) {
-
         }
 
         init(domNode) {
