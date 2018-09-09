@@ -10,7 +10,7 @@ jsRequire('/templates/TAppRoot.jshtml');
         }
 
         render() {
-            return TAppRoot([], this.name).join('');
+            return TAppRoot([], this.name);
         }
     }
 

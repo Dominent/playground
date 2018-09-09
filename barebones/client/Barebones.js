@@ -1,4 +1,7 @@
 /* IF DEV */
+jsRequire('/barebones/client/ModuleBuilder.js');
+jsRequire('/barebones/client/ExceptionsManager.js');
+jsRequire('/barebones/client/DataBinder.js');
 jsRequire('/barebones/client/Renderer.js');
 jsRequire('/barebones/client/EventsManager.js');
 /* END IF */
@@ -9,44 +12,21 @@ jsRequire('/barebones/client/EventsManager.js');
             this.__services = {};
         }
 
-        init() {
-            //TODO(PPavlov): This is shit, need to cleanup, rewrite renderer, its more bloated than a sick dog
-            let renderer = new container.Renderer(document.body);
+        init(rootNode) {
+            let moduleBuilder = new container.ModuleBuilder();
+            let exceptionsManager = new container.ExceptionsManager();
+            let dataBinder = new container.DataBinder();
+            let renderer = new container.Renderer();
+            let eventsManager = new container.EventsManager();
 
-            renderer.moduleSelector = (node) => {
-                let element = node.querySelector('[js-module]');
+            moduleBuilder
+                .use(x => exceptionsManager.attach(x))
+                .registerRenderer(renderer)
+                .registerDataBinder(dataBinder)
+                .registerEventsManager(eventsManager)
+                .init(rootNode)
 
-                if (element) {
-                    return {
-                        type: element.getAttribute('js-module'),
-                        props: element.dataset,
-                        element: element
-                    }
-                } else {
-                    return null;
-                }
-            };
-
-            renderer.buildModule = (moduleClass, props) => {
-                //TODO(PPavlov): Move to first registration of module!
-                let exceptionsManager = new container.ExceptionsManager();
-                let safeModule = exceptionsManager.compile(moduleClass);
-
-                let module = new safeModule(props);
-
-                //TODO(PPavlov): Move to first registration of module!
-                let dataBinder = new container.DataBinder();
-                let bindModule = dataBinder.bind(module);
-
-                return bindModule;
-            }
-
-            renderer.onAfterRender = (element, module) => new container.EventsManager()
-                .attachEvents(element, module);
-
-            renderer.init();
-
-            barebones.__renderer = renderer;
+            barebones.moduleBuilder = moduleBuilder;
         }
 
         registerService(name, service) {

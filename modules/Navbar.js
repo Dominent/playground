@@ -12,7 +12,7 @@ jsRequire('/templates/TNavbar.jshtml');
         observables() { return ['info'] }
 
         render() {
-            return TNavbar([], this.info).join('');
+            return TNavbar([], this.info);
         }
 
         onClickHandler(ev) {

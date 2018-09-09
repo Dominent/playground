@@ -1,8 +1,12 @@
 (function (container) {
     class EventsManager {
-        attachEvents(element, module) {
+        attach(module) {
+            let element = module.__domNode;
+
             let queue = [];
+
             queue.push(element);
+            
             while (queue.length) {
                 let current = queue.shift();
                 let attributes = current.getAttributeNames();

@@ -1,14 +1,10 @@
-/* IF DEV */
-jsRequire('/modules/Module.js'); 
-/* END IF */
-
 //TODO(PPavlov): Add Check if applied to typeof module
 //TODO(PPavlov): Exclude compile for [Module.js]
 
 (function (container) {
     class ExceptionsManager {
-        compile(module) {
-            module =  (function (_module) {
+        attach(module) {
+            module = (function (_module) {
                 module = function () {
                     let that = new _module(...arguments);
 
@@ -34,16 +30,17 @@ jsRequire('/modules/Module.js');
                 }
 
                 // reset prototype
-                module.prototype = _module.prototype; 
+                module.prototype = _module.prototype;
 
                 // fix constructor property
-                module.prototype.constructor = module; 
+                module.prototype.constructor = module;
 
                 return module;
             })(module);
-
+            
             return module;
         }
+
     }
 
     container.ExceptionsManager = ExceptionsManager;

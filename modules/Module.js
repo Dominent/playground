@@ -4,8 +4,8 @@
 
         }
 
-        init() {
-
+        init(domNode) {
+            this.__domNode = domNode;
         }
 
         render() {

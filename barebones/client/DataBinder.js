@@ -1,6 +1,6 @@
 (function (container) {
     class DataBinder {
-        bind(module) {
+        attach(module) {
             let observableProperties = module.observables();
             if (!observableProperties)
                 return module;
