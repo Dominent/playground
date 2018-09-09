@@ -5,7 +5,7 @@
         }
 
         init(rootNode) {
-            this.build(rootNode, null);
+            this.build(null, rootNode);
         }
 
         registerRenderer(renderer) {
@@ -37,7 +37,7 @@
             return this;
         }
 
-        build(domNode, module) {
+        build(module, domNode) {
             let _module = module;
 
             let queue = [];
@@ -68,7 +68,7 @@
 
                     _module = this._dataBinder.attach(_module);
                 }
-                
+
                 this._renderer.render(_module);
 
                 this._eventsManager.attach(_module);

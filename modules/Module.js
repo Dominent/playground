@@ -20,9 +20,8 @@
         }
 
         onChange() {
-            console.log('change occured');
-            // barebones.__render
-            // .render(this.render());
+            barebones.moduleBuilder
+                .build(this, this.__domNode.parentElement);
         }
 
         onException(ex) {
