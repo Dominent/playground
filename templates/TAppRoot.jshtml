@@ -2,4 +2,5 @@
     <div js-module="Navbar" data-info="Pesho"></div>
     <h3>App Root Module</h3>
     <span>{{name}}</span>
+    <button js-click="onButtonClick">Click Me, To Test State Change</button>
 </div>

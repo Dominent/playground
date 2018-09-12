@@ -7,6 +7,14 @@
             this.onStateChangeHandler;
         }
 
+        get State() {
+            return JSON.parse(JSON.stringify(this._state));
+        }
+
+        modify(property, value) {
+            this._state[property] = value;
+        }
+
         add(property, defaultVal) {
             Object.defineProperty(this._state, property, {
                 get: () => {
@@ -21,12 +29,16 @@
                         })
                 }
             })
-
+            
             if (defaultVal) {
                 this._values[property] = defaultVal;
             }
         }
-    }
 
+        get(property) {
+            
+        }
+    }
+    
     container.StateContainer = StateContainer;
-})
+})(container)

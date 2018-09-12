@@ -6,6 +6,10 @@
         attach(module) {
             module = (function (_module) {
                 module = function () {
+                    if (!_module.prototype instanceof container.Module) {
+                        return module;
+                    }
+
                     let that = new _module(...arguments);
 
                     let proto = Object.getPrototypeOf(that);
@@ -37,7 +41,7 @@
 
                 return module;
             })(module);
-            
+
             return module;
         }
 

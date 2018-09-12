@@ -1,4 +1,4 @@
-jsRequire('/StateContainer.js');
+jsRequire('/barebones/client/StateContainer.js');
 
 (function (container) {
     class StateManager {
@@ -8,20 +8,23 @@ jsRequire('/StateContainer.js');
             this.stateContainer = new container
                 .StateContainer();
 
-            this.stateContainer
-                .onStateChangeHandler = (ev) => {
-                    this._subscriptions[ev.data].call(this, ev);
-
-                    console.log(ev.data, ev.value);
-                }
+            this.stateContainer.onStateChangeHandler = function (ev) {
+                this._subscriptions[ev.property](ev)
+            }.bind(this);
         }
 
-        subscribe(property, subscription) {
+        subscribe(property, subscription, defaultValue = undefined) {
             this._subscriptions[property] = subscription;
+
+            this.stateContainer.add(property, defaultValue);
+
+            return this;
         }
 
         modify(property, value) {
-            this.stateContainer[property] = value;
+            this.stateContainer.modify(property, value);
+
+            return this;
         }
     }
 
