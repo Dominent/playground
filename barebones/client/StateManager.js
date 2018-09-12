@@ -1,9 +1,10 @@
+import StateContainer from './StateContainer.js';
+
 class StateManager {
     constructor() {
         this._subscriptions = {};
 
-        this.stateContainer = new container
-            .StateContainer();
+        this.stateContainer = new StateContainer();
 
         this.stateContainer.onStateChangeHandler = function (ev) {
             this._subscriptions[ev.property](ev)

@@ -1,9 +1,9 @@
-import ModuleBuilder from './ModuleBuilder';
-import ExceptionsManager from './ExceptionsManager';
-import DataBinder from './DataBinder';
-import Renderer from './Renderer';
-import EventsManager from './EventsManager';
-import StateManager from './StateManager';
+import ModuleBuilder from './ModuleBuilder.js';
+import ExceptionsManager from './ExceptionsManager.js';
+import DataBinder from './DataBinder.js';
+import Renderer from './Renderer.js';
+import EventsManager from './EventsManager.js';
+import StateManager from './StateManager.js';
 
 class Barebones {
     constructor() {
