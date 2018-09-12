@@ -4,6 +4,7 @@ jsRequire('/barebones/client/ExceptionsManager.js');
 jsRequire('/barebones/client/DataBinder.js');
 jsRequire('/barebones/client/Renderer.js');
 jsRequire('/barebones/client/EventsManager.js');
+jsRequire('/barebones/client/StateManager.js');
 /* END IF */
 
 (function (container) {
@@ -18,6 +19,9 @@ jsRequire('/barebones/client/EventsManager.js');
             let dataBinder = new container.DataBinder();
             let renderer = new container.Renderer();
             let eventsManager = new container.EventsManager();
+            let stateManager = new container.StateManager();
+
+            barebones.stateManager = stateManager;
 
             moduleBuilder
                 .use(x => exceptionsManager.attach(x))
