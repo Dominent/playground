@@ -1,4 +1,3 @@
-(function (container) {
     class StateContainer {
         constructor() {
             this._state = {};
@@ -40,5 +39,4 @@
         }
     }
     
-    container.StateContainer = StateContainer;
-})(container)
+export default StateContainer;

@@ -1,84 +1,83 @@
-(function (container) {
-    class ModuleBuilder {
-        constructor() {
-            this._middleware = [];
-        }
+class ModuleBuilder {
+    constructor() {
+        this._middleware = [];
+    }
 
-        init(rootNode) {
-            this.build(null, rootNode);
-        }
+    init(rootNode) {
+        this.build(null, rootNode);
+    }
 
-        registerRenderer(renderer) {
-            this._renderer = renderer;
+    registerRenderer(renderer) {
+        this._renderer = renderer;
 
-            return this;
-        }
+        return this;
+    }
 
-        registerDataBinder(dataBinder) {
-            this._dataBinder = dataBinder;
+    registerDataBinder(dataBinder) {
+        this._dataBinder = dataBinder;
 
-            return this;
-        }
+        return this;
+    }
 
-        registerEventsManager(eventsManager) {
-            this._eventsManager = eventsManager;
+    registerEventsManager(eventsManager) {
+        this._eventsManager = eventsManager;
 
-            return this;
-        }
+        return this;
+    }
 
-        /**
-         * Register middleware, applied when module is build.
-         * @param {Function} middleware Current middleware callback, that will be registered.
-         * Retuns ModuleBuilder.
-         */
-        use(middleware) {
-            this._middleware.push(middleware);
+    /**
+     * Register middleware, applied when module is build.
+     * @param {Function} middleware Current middleware callback, that will be registered.
+     * Retuns ModuleBuilder.
+     */
+    use(middleware) {
+        this._middleware.push(middleware);
 
-            return this;
-        }
+        return this;
+    }
 
-        build(module, domNode) {
-            let _module = module;
+    build(module, domNode) {
+        let _module = module;
 
-            let queue = [];
-            queue.push(domNode);
+        let queue = [];
+        queue.push(domNode);
 
-            while (queue.length) {
-                let current = queue.shift();
+        while (queue.length) {
+            let current = queue.shift();
 
-                let element = current.querySelector('[js-module]');
+            let element = current.querySelector('[js-module]');
 
-                if (!element) {
-                    continue;
-                }
-
-                let moduleType = element.getAttribute('js-module');
-                let moduleProps = element.dataset;
-
-                if (_module === null) {
-                    jsRequire(`/modules/${moduleType}.js`);
-
-                    for (let middleware of this._middleware) {
-                        _module = middleware(_module || container[moduleType]);
-                    }
-
-                    _module = new _module(moduleProps);
-
-                    _module.init(element);
-
-                    _module = this._dataBinder.attach(_module);
-                }
-
-                this._renderer.render(_module);
-
-                this._eventsManager.attach(_module);
-
-                [...element.children]
-                    .forEach(el => queue.push(el));
-
-                _module = null;
+            if (!element) {
+                continue;
             }
+
+            let moduleType = element.getAttribute('js-module');
+            let moduleProps = element.dataset;
+
+            if (_module === null) {
+                jsRequire(`/modules/${moduleType}.js`);
+
+                for (let middleware of this._middleware) {
+                    _module = middleware(_module || container[moduleType]);
+                }
+
+                _module = new _module(moduleProps);
+
+                _module.init(element);
+
+                _module = this._dataBinder.attach(_module);
+            }
+
+            this._renderer.render(_module);
+
+            this._eventsManager.attach(_module);
+
+            [...element.children]
+                .forEach(el => queue.push(el));
+
+            _module = null;
         }
     }
-    container.ModuleBuilder = ModuleBuilder;
-})(container)
+}
+
+export default ModuleBuilder;

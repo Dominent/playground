@@ -1,32 +1,30 @@
-(function (container) {
-    class Module {
-        constructor(props) {
-        }
-
-        init(domNode) {
-            this.__domNode = domNode;
-        }
-
-        render() {
-
-        }
-
-        destroy() {
-
-        }
-
-        observables() {
-        }
-
-        onChange() {
-            barebones.moduleBuilder
-                .build(this, this.__domNode.parentElement);
-        }
-
-        onException(ex) {
-            console.log(ex);
-        }
+class Module {
+    constructor(props) {
     }
 
-    container.Module = Module;
-})(container);
+    init(domNode) {
+        this.__domNode = domNode;
+    }
+
+    render() {
+
+    }
+
+    destroy() {
+
+    }
+
+    observables() {
+    }
+
+    onChange() {
+        barebones.moduleBuilder
+            .build(this, this.__domNode.parentElement);
+    }
+
+    onException(ex) {
+        console.log(ex);
+    }
+}
+
+export default Module;

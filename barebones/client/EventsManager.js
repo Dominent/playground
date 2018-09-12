@@ -1,32 +1,30 @@
-(function (container) {
-    class EventsManager {
-        attach(module) {
-            let element = module.__domNode;
+class EventsManager {
+    attach(module) {
+        let element = module.__domNode;
 
-            let queue = [];
+        let queue = [];
 
-            queue.push(element);
-            
-            while (queue.length) {
-                let current = queue.shift();
-                let attributes = current.getAttributeNames();
-                const excludedAttributes = ['js-module'];
-                let regExp = new RegExp(`(?!${excludedAttributes.join('|')})js-[\\w]+`, 'i');
+        queue.push(element);
 
-                let eventAttributes = attributes
-                    .filter(x => regExp.test(x));
+        while (queue.length) {
+            let current = queue.shift();
+            let attributes = current.getAttributeNames();
+            const excludedAttributes = ['js-module'];
+            let regExp = new RegExp(`(?!${excludedAttributes.join('|')})js-[\\w]+`, 'i');
 
-                for (let ev of eventAttributes) {
-                    let handler = current.getAttribute(ev);
-                    let type = ev.replace('js-', '');
+            let eventAttributes = attributes
+                .filter(x => regExp.test(x));
 
-                    current.addEventListener(type, module[handler]);
-                }
+            for (let ev of eventAttributes) {
+                let handler = current.getAttribute(ev);
+                let type = ev.replace('js-', '');
 
-                [...current.children].forEach(x => queue.push(x));
+                current.addEventListener(type, module[handler]);
             }
+
+            [...current.children].forEach(x => queue.push(x));
         }
     }
+}
 
-    container.EventsManager = EventsManager;
-})(container)
+export default EventsManager;
