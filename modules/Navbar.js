@@ -1,8 +1,9 @@
 import TNavbar from '/templates/TNavbar.jshtml';
+import Module from '/barebones/client/Module.js';
 
 const { stateManager } = barebones;
 
-class Navbar extends container.Module {
+class Navbar extends Module {
     constructor(props) {
         super(props)
 

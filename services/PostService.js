@@ -1,7 +1,5 @@
-(function (container) {
-    class PostService {
-        
-    }
+class PostService {
 
-    container.PostService = PostService;
-})(container)
+}
+
+export default PostService;

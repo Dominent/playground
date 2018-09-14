@@ -1,8 +1,9 @@
 import TAppRoot from '/templates/TAppRoot.jshtml';
+import Module from '/barebones/client/Module.js';
 
 const { stateManager } = barebones;
 
-class AppRoot extends container.Module {
+class AppRoot extends Module {
     constructor(props) {
         super(props);
 

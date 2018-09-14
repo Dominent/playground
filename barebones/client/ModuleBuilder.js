@@ -55,6 +55,7 @@ class ModuleBuilder {
             let moduleProps = element.dataset;
 
             if (_module === null) {
+                debugger;
                 jsRequire(`/modules/${moduleType}.js`);
 
                 for (let middleware of this._middleware) {
