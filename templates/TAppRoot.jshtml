@@ -1,6 +1,9 @@
+<div>
+<div js-module="Navbar"></div>
+<div js-module="Jumbotron"></div>
 <div class="container">
-    <div js-module="Navbar" data-info="Pesho"></div>
-    <h3>App Root Module</h3>
-    <span>{{name}}</span>
-    <button js-click="onButtonClick">Click Me, To Test State Change</button>
+    <div js-module="Items"></div>
+    <hr>
+    <div js-module="Footer"></div>
+</div>
 </div>
