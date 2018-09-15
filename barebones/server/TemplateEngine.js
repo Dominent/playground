@@ -2,7 +2,7 @@ const path = require('path');
 const fs = require('fs')
 
 const templateWrapper = (name, parameters, body) => {
-    return `function ${name}(${parameters}) {
+    return `export default function ${name}(${parameters}) {
         ${body}
         return __html;
     }`;

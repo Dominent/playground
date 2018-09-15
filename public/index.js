@@ -1,13 +1,20 @@
-jsRequire('/barebones/client/Barebones.js');
-jsRequire('/barebones/client/Module.js');
+import Barebones from '../barebones/Barebones.js';
 
-jsRequire('/services/EmailService.js');
-jsRequire('/services/PostService.js');
+import AppRoot from '../modules/AppRoot.js';
+import Navbar from '../modules/Navbar.js';
 
-var barebones = new container.Barebones();
+// jsRequire('/barebones/client/Module.js');
 
-barebones
-    .registerService('PostService', () => new container.PostService())
-    .registerService('EmailService', () => new container.EmailService())
+// jsRequire('/services/EmailService.js');
+// jsRequire('/services/PostService.js');
 
-barebones.init(document.body);
+var barebones = new Barebones();
+
+// barebones
+//     .registerService('PostService', () => new container.PostService())
+//     .registerService('EmailService', () => new container.EmailService())
+
+barebones.init(document.body, {
+    'AppRoot': AppRoot,
+    'Navbar': Navbar,
+});

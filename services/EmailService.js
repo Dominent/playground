@@ -1,7 +1,5 @@
-(function (container) {
-    class EmailService {
-        
-    }
+class EmailService {
 
-    container.EmailService = EmailService;
-})(container)
+}
+
+export default EmailService;

@@ -1,5 +1,4 @@
-(function (container) {
-    class DataBinder {
+  class DataBinder {
         attach(module) {
             let observableProperties = module.observables();
             if (!observableProperties)
@@ -33,5 +32,4 @@
         }
     }
 
-    container.DataBinder = DataBinder;
-})(container)
+export default DataBinder;

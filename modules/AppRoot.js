@@ -1,26 +1,25 @@
-jsRequire('/templates/TAppRoot.jshtml');
+import TAppRoot from '/templates/TAppRoot.jshtml';
+import Module from '/barebones/Module.js';
+import { dependencyContainer } from '/barebones/DependencyContainer.js';
 
-(function (container) {
-    const { stateManager } = barebones;
+class AppRoot extends Module {
+    constructor(props) {
+        super(props);
 
-    class AppRoot extends container.Module {
-        constructor(props) {
-            super(props);
+        this.name = 'AppRoot';
+    }
 
-            this.name = 'AppRoot';
-        }
+    render() {
+        return TAppRoot([], this.name);
+    }
 
-        render() {
-            return TAppRoot([], this.name);
-        }
-
-        onButtonClick(ev) {
-            stateManager.modify('testItem', {
+    onButtonClick(ev) {
+        dependencyContainer.get('stateManager')
+            .modify('testItem', {
                 name: 'Ivan',
                 age: '32'
             });
-        }
     }
+}
 
-    container.AppRoot = AppRoot;
-})(container)
+export default AppRoot;

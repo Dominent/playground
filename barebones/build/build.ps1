@@ -1,3 +1,7 @@
+# TODO(PPavlov): Introduce Bundler JS 
+# TODO(PPavlov): Introduce Minifier JS
+# TODO(PPavlov): Include Support for Import/Export ES6 Syntax
+
 $LIBRARY_NAME = 'barebones.js';
 $PATTERN = '\/\* IF DEV \*\/[\S\s]*\/\* END IF \*\/';
 $BUILD_PATH = "./bin";

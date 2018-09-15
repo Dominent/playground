@@ -4,8 +4,9 @@ const TemplateEngine = require('./barebones/server/TemplateEngine');
 
 let router = new Router()
     .mapIndexRoute('/', '/public/index.html')
-    .mapDirectoryRoute('/barebones/client', ['.js'])
-    .mapFileRoute('/barebones/bootstrap.js')
+    
+    .mapDirectoryRoute('/barebones', ['.js'])
+    
     .mapDirectoryRoute('/public', ['.js', '.html'])
     .mapDirectoryRoute('/modules', ['.js'])
     .mapDirectoryRoute('/services', ['.js'])
