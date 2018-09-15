@@ -1,4 +1,4 @@
-import Barebones from '../barebones/client/Barebones.js';
+import Barebones from '../barebones/Barebones.js';
 
 import AppRoot from '../modules/AppRoot.js';
 import Navbar from '../modules/Navbar.js';

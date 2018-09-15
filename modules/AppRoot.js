@@ -1,6 +1,6 @@
 import TAppRoot from '/templates/TAppRoot.jshtml';
-import Module from '/barebones/client/Module.js';
-import { dependencyContainer } from '/barebones/client/DependencyContainer.js';
+import Module from '/barebones/Module.js';
+import { dependencyContainer } from '/barebones/DependencyContainer.js';
 
 class AppRoot extends Module {
     constructor(props) {

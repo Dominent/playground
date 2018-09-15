@@ -25,7 +25,7 @@ class Barebones {
             .registerRenderer(renderer)
             .registerDataBinder(dataBinder)
             .registerEventsManager(eventsManager)
-            .init(rootNode)
+            .init(rootNode);
     }
 }
 
