@@ -51,35 +51,33 @@ class ModuleBuilder {
         while (queue.length) {
             let current = queue.shift();
 
-            let element = current.querySelector('[js-module]');
+            let elements = [...current.querySelectorAll('[js-module]')]
 
-            if (!element) {
-                continue;
-            }
+            for (let element of elements) {
+                let moduleType = element.getAttribute('js-module');
+                let moduleProps = element.dataset;
 
-            let moduleType = element.getAttribute('js-module');
-            let moduleProps = element.dataset;
+                if (_module === null) {
+                    for (let middleware of this._middleware) {
+                        _module = middleware(_module || this._moduleContainer[moduleType]);
+                    }
 
-            if (_module === null) {
-                for (let middleware of this._middleware) {
-                    _module = middleware(_module || this._moduleContainer[moduleType]);
+                    _module = new _module(moduleProps);
+
+                    _module.init(element);
+
+                    _module = this._dataBinder.attach(_module);
                 }
 
-                _module = new _module(moduleProps);
+                this._renderer.render(_module);
 
-                _module.init(element);
+                this._eventsManager.attach(_module);
 
-                _module = this._dataBinder.attach(_module);
+                [...element.children]
+                    .forEach(el => queue.push(el));
+
+                _module = null;
             }
-
-            this._renderer.render(_module);
-
-            this._eventsManager.attach(_module);
-
-            [...element.children]
-                .forEach(el => queue.push(el));
-
-            _module = null;
         }
     }
 }
