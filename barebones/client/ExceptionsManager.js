@@ -1,11 +1,13 @@
 //TODO(PPavlov): Add Check if applied to typeof module
 //TODO(PPavlov): Exclude compile for [Module.js]
 
+import Module from './Module.js';
+
 class ExceptionsManager {
     attach(module) {
         module = (function (_module) {
             module = function () {
-                if (!_module.prototype instanceof container.Module) {
+                if (!_module.prototype instanceof Module) {
                     return module;
                 }
 

@@ -25,6 +25,12 @@ class ModuleBuilder {
         return this;
     }
 
+    regsiterModuleContainer(moduleContainer) {
+        this._moduleContainer = moduleContainer;
+
+        return this;
+    }
+
     /**
      * Register middleware, applied when module is build.
      * @param {Function} middleware Current middleware callback, that will be registered.
@@ -55,11 +61,8 @@ class ModuleBuilder {
             let moduleProps = element.dataset;
 
             if (_module === null) {
-                debugger;
-                jsRequire(`/modules/${moduleType}.js`);
-
                 for (let middleware of this._middleware) {
-                    _module = middleware(_module || container[moduleType]);
+                    _module = middleware(_module || this._moduleContainer[moduleType]);
                 }
 
                 _module = new _module(moduleProps);

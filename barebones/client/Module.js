@@ -1,3 +1,5 @@
+import { serviceContainer } from './ServiceContainer.js';
+
 class Module {
     constructor(props) {
     }
@@ -18,7 +20,7 @@ class Module {
     }
 
     onChange() {
-        barebones.moduleBuilder
+        serviceContainer.getService('moduleBuilder')
             .build(this, this.__domNode.parentElement);
     }
 

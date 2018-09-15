@@ -1,7 +1,6 @@
 import TNavbar from '/templates/TNavbar.jshtml';
 import Module from '/barebones/client/Module.js';
-
-const { stateManager } = barebones;
+import { serviceContainer } from '/barebones/client/ServiceContainer.js';
 
 class Navbar extends Module {
     constructor(props) {
@@ -9,7 +8,8 @@ class Navbar extends Module {
 
         this.info = props.info;
 
-        stateManager.subscribe('testItem', this.onNavbarItemChange);
+        serviceContainer.getService('stateManager')
+            .subscribe('testItem', this.onNavbarItemChange);
     }
 
     observables() { return ['info'] }
