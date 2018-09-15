@@ -1,6 +1,6 @@
 import TAppRoot from '/templates/TAppRoot.jshtml';
 import Module from '/barebones/client/Module.js';
-import { serviceContainer } from '/barebones/client/ServiceContainer.js';
+import { dependencyContainer } from '/barebones/client/DependencyContainer.js';
 
 class AppRoot extends Module {
     constructor(props) {
@@ -14,7 +14,7 @@ class AppRoot extends Module {
     }
 
     onButtonClick(ev) {
-        serviceContainer.getService('stateManager')
+        dependencyContainer.get('stateManager')
             .modify('testItem', {
                 name: 'Ivan',
                 age: '32'

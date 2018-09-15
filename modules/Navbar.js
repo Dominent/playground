@@ -1,6 +1,6 @@
 import TNavbar from '/templates/TNavbar.jshtml';
 import Module from '/barebones/client/Module.js';
-import { serviceContainer } from '/barebones/client/ServiceContainer.js';
+import { dependencyContainer } from '/barebones/client/DependencyContainer.js';
 
 class Navbar extends Module {
     constructor(props) {
@@ -8,7 +8,7 @@ class Navbar extends Module {
 
         this.info = props.info;
 
-        serviceContainer.getService('stateManager')
+        dependencyContainer.get('stateManager')
             .subscribe('testItem', this.onNavbarItemChange);
     }
 

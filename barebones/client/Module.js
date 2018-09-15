@@ -1,4 +1,4 @@
-import { serviceContainer } from './ServiceContainer.js';
+import { dependencyContainer } from './DependencyContainer.js';
 
 class Module {
     constructor(props) {
@@ -20,7 +20,7 @@ class Module {
     }
 
     onChange() {
-        serviceContainer.getService('moduleBuilder')
+        dependencyContainer.get('moduleBuilder')
             .build(this, this.__domNode.parentElement);
     }
 

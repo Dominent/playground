@@ -4,7 +4,7 @@ import DataBinder from './DataBinder.js';
 import Renderer from './Renderer.js';
 import EventsManager from './EventsManager.js';
 import StateManager from './StateManager.js';
-import { serviceContainer } from './ServiceContainer.js';
+import { dependencyContainer } from './DependencyContainer.js';
 
 class Barebones {
     init(rootNode, moduleContainer) {
@@ -15,9 +15,9 @@ class Barebones {
         let eventsManager = new EventsManager();
         let stateManager = new StateManager();
 
-        serviceContainer
-            .registerService('stateManager', stateManager)
-            .registerService('moduleBuilder', moduleBuilder);
+        dependencyContainer
+            .register('stateManager', stateManager)
+            .register('moduleBuilder', moduleBuilder);
 
         moduleBuilder
             .use(x => exceptionsManager.attach(x))
