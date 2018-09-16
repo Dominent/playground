@@ -1,12 +1,9 @@
-{(import TItem from './TItem.jshtml';)}
+{(import TItem from './TItem.jshtml')}
 
 <div class="row">
-    {{
-        let output = [];
-        for (let item of items){
-            output = TItem(output)
+    {[
+        for(let item of this.items) {
+            TItem(__html, 'Lorem Ipsum dolor sit ament', 'some very cool descritpion')
         }
-
-        return output;
-    }}
+    ]}
 </div>
