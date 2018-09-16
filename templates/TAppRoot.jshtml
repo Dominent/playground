@@ -1,9 +1,11 @@
 <div>
-<div js-module="Navbar"></div>
-<div js-module="Jumbotron"></div>
-<div class="container">
-    <div js-module="Items"></div>
-    <hr>
-    <div js-module="Footer"></div>
-</div>
+    <div js-module="Navbar" data-title="Hello Barebones.js"></div>
+    <div js-module="Jumbotron"></div>
+    <div class="container">
+        <div js-module="Items"></div>
+        <hr>
+        <div js-module="Contacts"></div>
+        <hr>
+        <div js-module="Footer"></div>
+    </div>
 </div>

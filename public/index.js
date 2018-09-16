@@ -5,6 +5,7 @@ import Navbar from '../modules/Navbar.js';
 import Jumbotron from '../modules/Jumbotron.js';
 import Items from '../modules/Items.js';
 import Footer from '../modules/Footer.js';
+import Contacts from '../modules/Contacts.js';
 
 var barebones = new Barebones();
 
@@ -14,4 +15,5 @@ barebones.init(document.body, {
     'Jumbotron': Jumbotron,
     'Items': Items,
     'Footer': Footer,
+    'Contacts': Contacts
 });
