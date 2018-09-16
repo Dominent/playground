@@ -11,6 +11,8 @@ class Contacts extends Module {
     observables() { return ['email'] }
 
     onEmailChange(ev) {
+        debugger;
+        
         this.email = ev.target.value;
         ev.stopPropagation()
     }

@@ -21,7 +21,7 @@ class Module {
 
     onChange() {
         dependencyContainer.get('moduleBuilder')
-            .build(this, this.__domNode.parentElement);
+            .build(this, this.__domNode);
     }
 
     onException(ex) {

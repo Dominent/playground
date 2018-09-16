@@ -53,6 +53,10 @@ class ModuleBuilder {
 
             let elements = [...current.querySelectorAll('[js-module]')]
 
+            if(current.hasAttribute('js-module')){
+                elements.push(current);
+            }
+
             for (let element of elements) {
                 let moduleType = element.getAttribute('js-module');
                 let moduleProps = element.dataset;
