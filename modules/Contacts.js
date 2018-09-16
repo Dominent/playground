@@ -21,7 +21,9 @@ class Contacts extends Module {
     }
 
     render() {
-        return TContacts([], this.email);
+        return TContacts.call({
+            email: this.email
+        }, []);
     }
 }
 

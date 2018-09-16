@@ -3,9 +3,6 @@ const CodeHandler = require('./CodeHandler.js');
 const ImportHandler = require('./ImportHandler.js');
 
 class ExtendedTemplateEngine {
-    constructor() {
-    }
-
     compileAsync(name, content) {
         let output = [];
         let imports = [];

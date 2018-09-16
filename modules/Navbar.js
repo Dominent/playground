@@ -22,7 +22,10 @@ class Navbar extends Module {
     }
 
     render() {
-        return TNavbar([], this.title, this.person.email);
+        return TNavbar.call({
+            title: this.title,
+            email: this.person.email
+        }, []);
     }
 }
 

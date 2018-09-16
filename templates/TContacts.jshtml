@@ -1,5 +1,5 @@
 <form>
-  <div>{{email}}</div>
+  <div>{{this.email}}</div>
   <div class="form-group">
     <label for="exampleInputEmail1">Email address</label>
     <input js-change="onEmailChange" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
