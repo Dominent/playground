@@ -1,5 +1,6 @@
 import Module from '/barebones/Module.js';
 import TContacts from '/templates/TContacts.jshtml';
+import { dependencyContainer } from '/barebones/DependencyContainer.js';
 
 class Contacts extends Module {
     constructor(props) {
@@ -11,14 +12,18 @@ class Contacts extends Module {
     observables() { return ['email'] }
 
     onEmailChange(ev) {
-        debugger;
-        
         this.email = ev.target.value;
-        ev.stopPropagation()
+
+        dependencyContainer.get('stateManager')
+            .modify('person', {
+                email: this.email
+            })
     }
 
     render() {
-        return TContacts([], this.email);
+        return TContacts.call({
+            email: this.email
+        }, []);
     }
 }
 
