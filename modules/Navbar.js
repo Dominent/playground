@@ -6,27 +6,18 @@ class Navbar extends Module {
     constructor(props) {
         super(props)
 
-        this.title = props.title;
-        this.person = {
-            email: ''
-        };
+        this.title = props.title || '';
+        this.email = props.email || '';
 
         dependencyContainer.get('stateManager')
             .subscribe('person', this.onPersonChange.bind(this))
     }
 
-    observables() { return ['person'] }
-
     onPersonChange(ev) {
-        this.person = ev.value;
+        this.email = ev.value.email;
     }
 
-    render() {
-        return TNavbar.call({
-            title: this.title,
-            email: this.person.email
-        }, []);
-    }
+    template() { return TNavbar; }
 }
 
 export default Navbar;

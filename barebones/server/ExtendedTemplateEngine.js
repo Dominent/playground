@@ -15,29 +15,31 @@ class ExtendedTemplateEngine {
         let codeHandler = new CodeHandler();
         let importHandler = new ImportHandler();
 
+        let parameters = [
+            '__html'
+        ]
+
         htmlHandler
             .setSuccessor(codeHandler
                 .setSuccessor(importHandler));
 
         for (let i = 0; i < lines.length; ++i) {
-            let { imp, out, index } = htmlHandler.handleRequest(lines, i);
+            let { imp, out, index, params } = htmlHandler.handleRequest(lines, i);
 
             i = index;
 
             output.push(out);
+
             imports = imports.concat(imp);
+
+            parameters.push(...params);
         }
 
-        let parameters = [
-            '__html'
-        ]
-
         return `${imports.join('\n')}
-        export default function ${name}(${parameters.join(', ')}) {
+        export default function ${name}(${[...Array.from(new Set(parameters))].join(', ')}) {
             ${output.join('\n')}
             return __html;
         }`;
-       
     }
 }
 

@@ -6,17 +6,15 @@ class AppRoot extends Module {
     constructor(props) {
         super(props);
 
-        this.name = 'AppRoot';
+        this.title = 'AppRoot';
     }
 
-    render() {
-        return TAppRoot([], this.name);
-    }
+    template() { return TAppRoot; }
 
     onButtonClick(ev) {
         dependencyContainer.get('stateManager')
             .modify('testItem', {
-                name: 'Ivan',
+                title: 'Ivan',
                 age: '32'
             });
     }

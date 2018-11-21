@@ -28,7 +28,8 @@ class CodeHandler extends Handler {
                 out: funcBody.join('\n')
                     .replace(regex.start, '')
                     .replace(regex.end, ''),
-                index: index
+                index: index,
+                params: []
             }
         }
 

@@ -1,8 +1,10 @@
 {(import TItem from './TItem.jshtml')}
 
 <div class="row">
+    {{items}}
+
     {[
-        for(let item of this.items) {
+        for(let item of items) {
             TItem.call({
                 heading:'Lorem Ipsum dolor sit ament',
                 description: 'some very cool descritpion'

@@ -9,7 +9,7 @@ class Contacts extends Module {
         this.email = '';
     }
 
-    observables() { return ['email'] }
+    template() { return TContacts; }
 
     onEmailChange(ev) {
         this.email = ev.target.value;
@@ -18,12 +18,6 @@ class Contacts extends Module {
             .modify('person', {
                 email: this.email
             })
-    }
-
-    render() {
-        return TContacts.call({
-            email: this.email
-        }, []);
     }
 }
 

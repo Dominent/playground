@@ -21,6 +21,13 @@ class ExceptionsManager {
                 for (let method of methods) {
                     // This is very suspicous, we should edit the proto not the object
                     // Replace with Object.defineproperty
+
+                    //TODO(PPavlov): HackFix, leave to enable observable properties,
+                    // remove to enable exceptions in templates!
+                    if(method === 'template') {
+                        continue;
+                    }
+
                     that[method] = function () {
                         try {
                             return _module.prototype[method]

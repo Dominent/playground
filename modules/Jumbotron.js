@@ -6,9 +6,7 @@ class Jumbotron extends Module {
         window.alert('Learn More clicked!');
     }
 
-    render() {
-        return TJumbotron([]);
-    }
+    template() { return TJumbotron; }
 }
 
 export default Jumbotron;

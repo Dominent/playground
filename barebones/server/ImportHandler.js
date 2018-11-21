@@ -18,7 +18,8 @@ class ImportHandler extends Handler {
             return {
                 imp: imp,
                 out: '',
-                index: index 
+                index: index,
+                params: []
             }
         }
 

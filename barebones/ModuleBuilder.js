@@ -62,6 +62,7 @@ class ModuleBuilder {
                 let moduleProps = element.dataset;
 
                 if (_module === null) {
+                    //TODO(PPavlov): Enable Exception Logging
                     for (let middleware of this._middleware) {
                         _module = middleware(_module || this._moduleContainer[moduleType]);
                     }

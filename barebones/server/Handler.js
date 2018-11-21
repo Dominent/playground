@@ -18,7 +18,8 @@ class Handler {
             return {
                 imp: [],
                 out: '__html.push(`' + lines[index] + '`);',
-                index: index
+                index: index,
+                params: []
             }
         }
 
