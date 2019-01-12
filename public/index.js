@@ -17,3 +17,40 @@ barebones.init(document.body, {
     'Footer': Footer,
     'Contacts': Contacts
 });
+
+// new Barebones({
+//      components: {
+//          'app-root': AppRoot,
+//          'navbar': Navbar,
+//          'jumbotron': Jumbotron,
+//          'items': Items,
+//          'footer': Footer,
+//          'contacts': Contacts
+//      },
+//      bootstrap: 'app-root'
+// }).mount('#app');
+
+// Principles:
+// 1. Simplicity
+// 2. As less external dependencies the better
+// 3. Prefer the full naming, not the shorter one
+
+// TODO(PPavlov): You do not need template, everything is modules or components
+// TODO(PPavlov): Decouple solution from server
+// TODO(PPavlov): Leave syntax to {[ for multiline ]} and {{ for single line }}
+// TODO(PPavlov): If possible leave syntax to only {[]} for both multi and single line
+// TODO(PPavlov): leave teplates to be *.html
+// TODO(PPavlov): Introduce Virtual Dom
+
+//js-on:click=""
+//js-bind:title=""
+//js:model=""
+//js:component="app-root"
+
+// class AppRoot extends Component {
+//     template = () => TAppRoot;
+// }
+
+// {
+//     template: () => TAppRoot;
+// }
